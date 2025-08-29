@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.scss";
 import LayoutWrapper from "components/layout/page";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",

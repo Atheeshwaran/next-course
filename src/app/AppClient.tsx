@@ -1,8 +1,7 @@
 "use client";
 
-import Dashboard from "./(protected)/dashboard/page";
 import CssBaseline from "@mui/material/CssBaseline";
-import "react-toastify/dist/ReactToastify.css";
+import Dashboard from "./(protected)/dashboard/page";
 
 const AppClient = () => {
   return (

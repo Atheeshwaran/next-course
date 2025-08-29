@@ -3,14 +3,19 @@
 import Footer from "./footer";
 import Header from "./header";
 import ApplicationThemeProvider from "components/theme";
+import { CacheProvider } from "@emotion/react";
+import { createEmotionCache } from "utils/createEmotionCache";
 
+const clientSideEmotionCache = createEmotionCache();
 const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ApplicationThemeProvider>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-    </ApplicationThemeProvider>
+    <CacheProvider value={clientSideEmotionCache}>
+      <ApplicationThemeProvider>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </ApplicationThemeProvider>
+    </CacheProvider>
   );
 };
 
