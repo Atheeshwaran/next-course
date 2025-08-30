@@ -12,7 +12,7 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
     <CacheProvider value={clientSideEmotionCache}>
       <ApplicationThemeProvider>
         <Header />
-        <main>{children}</main>
+        {children}
         <Footer />
       </ApplicationThemeProvider>
     </CacheProvider>

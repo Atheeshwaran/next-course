@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <LayoutWrapper>{children}</LayoutWrapper>
-        <ToastContainer />
+        <ToastContainer/>
       </body>
     </html>
   );

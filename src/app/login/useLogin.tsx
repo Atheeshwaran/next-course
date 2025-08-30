@@ -21,16 +21,13 @@ export const useLogin = () => {
 
   const onSubmit = async () => {
     try {
-      const response = await wrappedFetch("/api/auth/login", "POST", {
-        email,
-        password,
-      });
+      const response = await wrappedFetch("/api/auth/login", "POST", userCred);
 
       if (response) {
         router.push(successRedirectUrl);
       }
     } catch (error) {
-      toast.error("Login failed. Please check your credentials.");
+      toast.error("Login failed. Please check your credentials." + error);
     }
   };
   return {
