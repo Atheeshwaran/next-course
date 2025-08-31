@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import { getCookies } from "lib/cookie";
 
 const protectedRoutes = ["/dashboard", "/"];
+const failedRedirect = new URL(`https://quantman-staging.in`);
 
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -11,7 +12,7 @@ export async function middleware(req: NextRequest) {
 
   if (isProtectedRoute) {
     if (!token) {
-      return NextResponse.redirect(new URL("/login", req.url));
+      return NextResponse.redirect(failedRedirect);
     }
     try {
       const verifyRes = await fetch(`${req.nextUrl.origin}/api/auth/verify`, {
@@ -24,11 +25,11 @@ export async function middleware(req: NextRequest) {
       if (verifyRes.ok) {
         return NextResponse.next();
       } else {
-        return NextResponse.redirect(new URL("/login", req.url));
+        return NextResponse.redirect(failedRedirect);
       }
     } catch (error) {
       console.log(error);
-      return NextResponse.redirect(new URL("/login", req.url));
+      return NextResponse.redirect(failedRedirect);
     }
   }
 
