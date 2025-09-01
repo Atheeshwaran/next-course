@@ -1,7 +1,7 @@
 const wrappedFetch = async (
   url: string,
   type: string,
-  body: Body | null = null,
+  body: Record<string, string | object>,
   token: string | null = null
 ) => {
   const headers = {

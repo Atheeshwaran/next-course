@@ -1,29 +1,41 @@
-// middleware.ts (root)
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getCookies } from "lib/cookie";
 
 const protectedRoutes = ["/dashboard", "/"];
-const publicRoutes = ["/login"];
+const failedRedirect = new URL(`https://quantman-staging.in`);
 
-const middleware = (req: NextRequest) => {
+export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
-  const isPublicRoute = publicRoutes.includes(path);
-  const session = req.cookies.get("session");
+  const token = getCookies("token")(req);
 
-  if (isProtectedRoute && !session) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+  if (isProtectedRoute) {
+    if (!token) {
+      return NextResponse.redirect(failedRedirect);
+    }
+    try {
+      const verifyRes = await fetch(`${req.nextUrl.origin}/api/v1/auth/verify`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  if (isPublicRoute && session) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+      if (verifyRes.ok) {
+        return NextResponse.next();
+      } else {
+        return NextResponse.redirect(failedRedirect);
+      }
+    } catch (error) {
+      console.log(error);
+      return NextResponse.redirect(failedRedirect);
+    }
   }
 
   return NextResponse.next();
-};
+}
 
-const config = {
+export const config = {
   matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };
-
-export { middleware, config };
