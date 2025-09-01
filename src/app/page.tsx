@@ -1,8 +1,14 @@
 // App component for entry point
 
-import AppClient from "./AppClient";
+import CssBaseline from "@mui/material/CssBaseline";
+import Dashboard from "./(protected)/dashboard/page";
 
 const Page = () => {
-  return <AppClient />;
+  return (
+    <>
+      <CssBaseline />
+      <Dashboard />
+    </>
+  );
 };
 export default Page;

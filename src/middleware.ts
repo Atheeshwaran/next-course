@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(failedRedirect);
     }
     try {
-      const verifyRes = await fetch(`${req.nextUrl.origin}/api/auth/verify`, {
+      const verifyRes = await fetch(`${req.nextUrl.origin}/api/v1/auth/verify`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -38,7 +38,7 @@ export const GET = async (req: Request) => {
       },
     });
 
-    const response = NextResponse.redirect(new URL("/dashboard", req.url));
+    const response = NextResponse.redirect(new URL("/", req.url));
     setCookies(response, {
       token: token,
       httpOnly: "true",

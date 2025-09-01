@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "kill-port 3000 && next dev --turbopack",
+    "clean": "rm -rf .next dist node_modules/.cache",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",

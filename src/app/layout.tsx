@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.scss";
-import LayoutWrapper from "components/layout/page";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { AppLayout } from "./provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <LayoutWrapper>{children}</LayoutWrapper>
-        <ToastContainer/>
+        <main>
+          <AppLayout>{children}</AppLayout>
+        </main>
+        <ToastContainer />
       </body>
     </html>
   );
